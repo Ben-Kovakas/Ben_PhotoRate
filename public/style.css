@@ -1,0 +1,39 @@
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+body {
+  text-align: center;
+  font-family: 'Andale Mono', sans-serif;
+  background-color: #222222; /* dark grey */
+  color: #FFFDD0; /* cream color */
+  margin: 50;
+  padding: 20px;
+}
+.main-container {
+  display: flex;
+  gap: 100px;
+  align-items: center; /* This will vertically align the form with the photo */
+}
+input[type="number"], textarea {
+  background: transparent;
+  color: #FFFDD0;
+  border: 1px solid #FFFDD0;
+  font-family: 'Andale Mono', sans-serif;
+}
+button {
+  background-color: #444444; /* slightly lighter grey */
+  color: #FFFDD0;
+  border: none;
+  padding: 10px 50px;
+  cursor: pointer;
+  font-family: 'Andale Mono', sans-serif;
+}
+#photo-title {
+    border: 2px solid #FFFDD0;
+    border-radius: 10px;
+    font-size: 50px;
+    padding: 10px;
+
+}

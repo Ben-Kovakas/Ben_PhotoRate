@@ -1,0 +1,37 @@
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.cdnfonts.com/css/andale-mono" rel="stylesheet">
+<!DOCTYPE html>
+<html lang="en">
+
+<style>
+@import url('https://fonts.cdnfonts.com/css/andale-mono');
+</style>
+                
+
+<head>
+    <meta charset="UTF-8">
+    <title>Photo Rater</title>
+</head>
+<body>
+    <div class="main-container"> 
+        <div id="photo-container">
+            <h2 id="photo-title">Loading...</h2>
+            <img id="photo-image" src="" alt="Photo" width="700">
+        </div>
+        <div id="rating-section">
+            <h2>Leave a Rating</h2>
+            <div>
+                <label for="rating-input">Rating (1-5):</label>
+                <input type="number" id="rating-input" min="1" max="5">
+            </div>
+            <div>
+                <label for="comment-input">Comment:</label>
+                <textarea id="comment-input" rows="4" cols="50"></textarea>
+            </div>
+            <button id="submit-button">Submit</button>
+            <button id="next-photo">Next Photo</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
