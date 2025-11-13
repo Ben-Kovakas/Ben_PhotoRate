@@ -1,7 +1,7 @@
 // Simple DB connectivity test script
 // Usage: node src/dbTest.js
 
-const pool = require('./database');
+const pool = require('../database');
 
 (async () => {
     console.log('Testing DB connection...');
