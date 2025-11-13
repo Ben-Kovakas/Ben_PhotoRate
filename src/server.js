@@ -1,6 +1,7 @@
 const express = require('express');
 const photoRoutes = require('./routes/photoEndpointsAPI');
 const commentRoutes = require('./routes/commentRateEndpointsAPI');
+const calcInfoRoutes = require('./routes/calcInfoAPI');
 const pool = require('./database'); 
 
 const app = express();
@@ -15,6 +16,7 @@ app.use('/media', express.static('media'));
 // Use the separate route files, prefixing them with their API path.
 app.use('/api/photos', photoRoutes);
 app.use('/api/comments', commentRoutes);
+app.use('/api/calcinfo', calcInfoRoutes);
 
 
 // Start the server

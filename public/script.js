@@ -4,6 +4,8 @@
 document.addEventListener('DOMContentLoaded', async () => {
     const photoTitleElement = document.getElementById('photo-title');
     const photoImageElement = document.getElementById('photo-image');
+    const averageRatingElement = document.getElementById('average-rating'); // New
+    const totalRatingsElement = document.getElementById('total-ratings');   // New
     const submitButton = document.getElementById('submit-button');
     const commentInput = document.getElementById('comment-input');
     const ratingInput = document.getElementById('rating-input');
@@ -18,6 +20,19 @@ document.addEventListener('DOMContentLoaded', async () => {
         totalPhotos = data.total_photos;
     }
 
+    async function loadRatingInfo(id) {
+        const response = await fetch(`/api/calcinfo/${id}`);
+        if (response.ok) {
+            const data = await response.json();
+            // Displaying the rating info. Using toFixed(2) for a cleaner look.
+            averageRatingElement.textContent = `Average Rating: ${Number(data.average_rating).toFixed(2) || 'N/A'}`;
+            totalRatingsElement.textContent = `Total Ratings: ${data.total_ratings || 0}`;
+        } else {
+            averageRatingElement.textContent = 'Average Rating: N/A';
+            totalRatingsElement.textContent = 'Total Ratings: 0';
+        }
+    }
+
     async function loadPhoto(id) {
         const response = await fetch(`/api/photos/${id}`);
         if (response.ok) {
@@ -25,6 +40,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             photoTitleElement.textContent = photo.title;
             photoImageElement.src = photo.url;
             currentPhotoId = photo.photo_id;
+            await loadRatingInfo(currentPhotoId); // Call the new function here
         } else {
             photoTitleElement.textContent = 'Photo not found';
             photoImageElement.src = '';
@@ -50,6 +66,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         alert(result.message);
         commentInput.value = '';
         ratingInput.value = '';
+        await loadRatingInfo(currentPhotoId); // Refresh rating info after submitting
     });
 
     nextPhotoButton.addEventListener('click', async () => {

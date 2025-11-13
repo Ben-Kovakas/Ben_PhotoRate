@@ -16,6 +16,12 @@ body {
   gap: 100px;
   align-items: center; /* This will vertically align the form with the photo */
 }
+.rating-section{
+  margin-top: 300px; /* Adjust this value to increase or decrease the space */
+}
+.average-box {
+  margin-top: 200px; /* Adjust this value to increase or decrease the space */
+}
 input[type="number"], textarea {
   background: transparent;
   color: #FFFDD0;
