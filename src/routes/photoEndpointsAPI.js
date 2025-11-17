@@ -31,5 +31,16 @@ router.get('/:id', async (req, res) => {
         res.status(500).json({ message: 'Internal server error' });
     }
 });
+router.get('/:id/comments', async (req, res) => {
+    try {
+        
+        const photoId = req.params.id;
+        const [rows] = await pool.query('SELECT comment FROM CommentRate WHERE photo_id = ? ORDER BY created_at ASC', [photoId]);
+        res.json({ comments: rows.map(row => row.comment) });
 
+    } catch (error) {
+        console.error('Error fetching comments:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
 module.exports = router;
