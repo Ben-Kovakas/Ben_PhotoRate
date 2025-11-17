@@ -1,42 +1,44 @@
-
+const dotenv = require('dotenv');
+const path = require('path');
 const { GoogleGenerativeAI } = require('@google/generative-ai');
 
-//.env file stuff... currently not using...
-// const dotenv = require('dotenv');
-// const path = require('path');
-// dotenv.config({ path: path.resolve(__dirname, '../.env') });
+// --- Gemini API Setup ---
+// In CommonJS, __dirname is available globally, simplifying path resolution.
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
+const genAI = new GoogleGenerativeAI(process.env.API_KEY);
+// --- End Gemini API Setup ---
 
-
-// Pass the API key directly to the constructor
-const genAI = new GoogleGenerativeAI('AIzaSyC8L1GQkqm7P_dvgssP5oW7LZGiDTJhO08');
-
-async function run() {
+/**
+ * Analyzes a list of comments using the Gemini API.
+ * @param {Array} comments - An array of comment objects from the database.
+ * @returns {Promise<string>} A promise that resolves to the AI-generated summary.
+ */
+async function analyzeComments(comments) {
   try {
-    // Get the generative model
-    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
-
-    // Structure the prompt correctly
-    const prompt = "Explain in 3 sentences or less the recent rise of gambling and it's effect on youth.";
+    const commentsJson = JSON.stringify(comments);
     
+    // CHECKPOINT 3: Log the exact data being sent to the LLM API.
+    console.log('[Checkpoint 3] Data being sent to AI for analysis:', commentsJson);
 
+    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+    const prompt = `Based on the following comments data in JSON format, provide a short, one-sentence summary of the overall sentiment. Comments: ${commentsJson}`;
+    
     const result = await model.generateContent({
       contents: [{ role: "user", parts: [{ text: prompt }] }],
-      systemInstruction: "You speak like Yoda from Star Wars.",
+      systemInstruction: "Take these commennts about an image and do these things: 1) Summarize the overall sentiment of the comments in one sentence. 2) Suggest three tags that describe the image based on the comments.",
       generationConfig: {
-        thinkingConfig: {
-            thinkingBudget: 0
-      },
-    },
-    });
-
-    // Get the text from the response
+        temperature: 0.7,
+        maxOutputTokens: 1024,
+    }
+});
     const response = await result.response;
-    const text = response.text();
-    console.log(text);
+    return response.text();
 
   } catch (error) {
-    console.error("An error occurred:", error);
+    console.error("An error occurred during AI analysis:", error);
+    return "Could not analyze comments at this time.";
   }
 }
 
- run();
+// Export the function using module.exports
+module.exports = { analyzeComments };
