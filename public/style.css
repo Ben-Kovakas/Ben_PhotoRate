@@ -1,55 +1,123 @@
 /* === General Styles === */
+html {
+  /* Set a base font size for rem units to be based on */
+  font-size: 16px; 
+  box-sizing: border-box; /* Apply a better box model to all elements */
+}
+
+/* Apply box-sizing to all elements for consistency */
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
 body {
   text-align: center;
   font-family: 'Andale Mono', sans-serif;
-  background-color: #222222; /* dark grey */
-  color: #FFFDD0; /* cream color */
-  margin: 50px; /* Added px for clarity */
-  padding: 20px;
+  background-color: #222222;
+  color: #FFFDD0;
+  margin: 0; /* Remove default margin */
+  padding: 2rem; /* Use rem for scalable padding */
+  /* Add padding on the right to create space for the fixed summary box */
+  /* 20vw (box width) + 3vw (box right offset) + 2vw (gutter) = 25vw */
+  padding-right: 25vw;
 }
 
 /* === Layout Containers === */
 .main-container {
   display: flex;
-  gap: 100px;
-  align-items: center; /* This will vertically align the form with the photo */
-  justify-content: center; /* Horizontally center the content */
+  /* Use a relative gap that scales with screen width */
+  gap: 5vw; 
+  align-items: flex-start;
+  justify-content: center;
+  /* Set a max width to prevent it from getting too wide on large screens */
+  max-width: 1400px; 
+  margin: 0 auto; /* Center the container */
+}
+
+#photo-container {
+  /* Allow this container to shrink but not smaller than 300px */
+  flex: 1;
+  min-width: 300px;
+}
+
+.rating-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem; /* Use rem for consistent spacing */
+  flex: 1;
+  max-width: 500px; /* Give the right column a max width */
 }
 
 /* === Component Styles === */
 #photo-title {
   border: 2px solid #FFFDD0;
-  border-radius: 10px;
-  font-size: 50px;
-  padding: 10px;
+  border-radius: 0.5rem;
+  /* Use rem for scalable font size */
+  font-size: clamp(1.5rem, 4vw, 3rem); /* Responsive font size */
+  padding: 0.5rem;
+  min-height: 7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-img {
+img#photo-image {
+  /* Make the image responsive */
+  width: 100%;
+  height: auto;
   display: block;
-  margin-left: auto;
-  margin-right: auto;
+  border-radius: 0.5rem; /* Add a slight border radius */
 }
 
 .average-box {
-  margin-top: 200px; /* Adjust this value to increase or decrease the space */
+  /* Spacing is now handled by the parent's gap */
 }
 
 /* === Form & Input Styles === */
+textarea {
+  width: 100%; /* Make textarea fill its container */
+  box-sizing: border-box; /* Include padding and border in the width */
+}
+
 input[type="number"], 
 textarea {
   background: transparent;
   color: #FFFDD0;
   border: 1px solid #FFFDD0;
   font-family: 'Andale Mono', sans-serif;
+  padding: 0.5rem; /* Add some padding */
 }
 
 button {
-  background-color: #444444; /* slightly lighter grey */
+  background-color: #444444;
   color: #FFFDD0;
   border: none;
-  padding: 10px 50px;
+  padding: 0.75rem 1.5rem; /* Use rem for padding */
   cursor: pointer;
   font-family: 'Andale Mono', sans-serif;
+  font-size: 1rem;
+}
+
+/* === AI Summary Box === */
+.ai-summary {
+  position: fixed;
+  /* Position and size relative to the viewport */
+  top: 5vh;
+  right: 3vw;
+  width: 20vw;
+  height: 80vh;
+  max-width: 350px; /* Prevent it from getting too large */
+  min-width: 200px; /* Prevent it from getting too small */
+
+  padding: 1rem;
+  border: 1px dashed #FFFDD0;
+  border-radius: 0.5rem;
+  text-align: left;
+  font-family: 'Courier New', Courier, monospace;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  overflow-y: auto;
+  box-sizing: border-box;
 }
 
 /* === 5-Star Rating System === */

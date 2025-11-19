@@ -20,7 +20,11 @@
         </div>
         <div class="rating-section">
             <h2>Leave a Rating</h2>
-            <div>      
+            <div class="average-box">
+                <h1><span id="total-ratings">N/A</span></h1>
+                <h1><span id="average-rating">N/A</span></h1>
+            </div>
+            <div>
                 <div class="rating-system", id="rating-input"> 
                     <!-- 5 Stars (Radio Buttons, value 5 is first due to direction: rtl) -->
                     
@@ -52,10 +56,11 @@
             </div>
             <button id="submit-button">Submit</button>
             <button id="next-photo">Next Photo</button>
-            <div class="average-box">
-                <h1><span id="total-ratings">N/A</span></h1>
-                <h1><span id="average-rating">N/A</span></h1>
-            </div>
+            
+        </div>
+        <div id="commentAnalyzation">
+            <button id="analyze-comments-button">Analyze Comments</button>
+            <div id="ai-summary-container" class="ai-summary"></div> <!-- Add this line -->
         </div>
     </div>
     <script src="script.js"></script>

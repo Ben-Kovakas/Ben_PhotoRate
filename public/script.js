@@ -9,11 +9,36 @@ document.addEventListener('DOMContentLoaded', async () => {
     const submitButton = document.getElementById('submit-button');
     const commentInput = document.getElementById('comment-input');
     const nextPhotoButton = document.getElementById('next-photo');
-    const ratingSystem = document.querySelector('.rating-system'); // For star reset
-    const currentRatingDisplay = document.getElementById('currentRatingDisplay'); // To show current selection
+    const ratingSystem = document.querySelector('.rating-system');
+    const currentRatingDisplay = document.getElementById('currentRatingDisplay');
+    const analyzeCommentsButton = document.getElementById('analyze-comments-button');
+    const aiSummaryContainer = document.getElementById('ai-summary-container');
 
     let currentPhotoId = 1;
     let totalPhotos = 1;
+
+    /**
+     * Creates a typewriter effect for the given text in the specified element.
+     * @param {HTMLElement} element - The HTML element to type into.
+     * @param {string} text - The text to display with the effect.
+     * @param {number} [speed=50] - The delay between each character in milliseconds.
+     */
+    function typewriterEffect(element, text, speed = 30) {
+        let i = 0;
+        element.innerHTML = ''; // Clear the container first
+        element.classList.add('typing'); // Add class to show the blinking cursor
+
+        function type() {
+            if (i < text.length) {
+                element.innerHTML += text.charAt(i);
+                i++;
+                setTimeout(type, speed);
+            } else {
+                element.classList.remove('typing'); // Remove cursor when typing is done
+            }
+        }
+        type();
+    }
 
     async function fetchTotalPhotos() {
         const response = await fetch('/api/photos/count');
@@ -51,6 +76,25 @@ document.addEventListener('DOMContentLoaded', async () => {
     ratingSystem.addEventListener('change', (e) => {
         if (e.target.name === 'rating') {
             currentRatingDisplay.textContent = `${e.target.value} Star${e.target.value > 1 ? 's' : ''} Selected`;
+        }
+    });
+
+    analyzeCommentsButton.addEventListener('click', async () => {
+        if (!currentPhotoId) return;
+
+        aiSummaryContainer.textContent = 'Analyzing...';
+        aiSummaryContainer.classList.remove('typing'); // Ensure no cursor on loading text
+
+        try {
+            const response = await fetch(`/api/photos/${currentPhotoId}/comments`);
+            const data = await response.json();
+
+            // Use the new typewriter effect to display the summary
+            typewriterEffect(aiSummaryContainer, data.summary);
+
+        } catch (error) {
+            console.error('Error fetching AI analysis:', error);
+            aiSummaryContainer.textContent = 'Could not fetch AI analysis.';
         }
     });
 
