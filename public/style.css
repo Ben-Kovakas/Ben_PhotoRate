@@ -89,13 +89,14 @@ textarea {
 }
 
 button {
-  background-color: #444444;
-  color: #FFFDD0;
+  background-color: rgba(46, 46, 46, 0.178);
+  color: #ffffff;
   border: none;
   padding: 0.75rem 1.5rem; /* Use rem for padding */
   cursor: pointer;
   font-family: 'Andale Mono', sans-serif;
   font-size: 1rem;
+  border-radius: 1.4rem;
 }
 
 /* === AI Summary Box === */
@@ -153,5 +154,38 @@ button {
 .rating-system input:checked + label:hover,
 .rating-system input:checked + label:hover ~ label {
   color: #cb98f5;
+}
+
+/* Custom styles that work with w3.css */
+
+/* === Custom Textarea & Inputs === */
+textarea,
+input[type="number"] {
+  background: transparent !important;
+  color: #FFFDD0 !important;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* === AI Summary Box & Typewriter === */
+.ai-summary {
+  min-height: 100px;
+  font-family: 'Courier New', Courier, monospace;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
+/* Blinking cursor effect for typewriter */
+.typing::after {
+  content: '|';
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  from, to {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
 }
 

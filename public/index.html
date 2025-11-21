@@ -1,68 +1,85 @@
-<link rel="stylesheet" href="style.css">
-<link href="https://fonts.cdnfonts.com/css/andale-mono" rel="stylesheet">
 <!DOCTYPE html>
 <html lang="en">
-
-<style>
-@import url('https://fonts.cdnfonts.com/css/andale-mono');
-</style>
-                
-
 <head>
+    <title>PhotoRater</title>
     <meta charset="UTF-8">
-    <title>Photo Rater</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- External Stylesheets -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <!-- Your Custom Stylesheet (for overrides and specific components) -->
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <div class="main-container"> 
-        <div id="photo-container">
-            <h2 id="photo-title">Loading...</h2>
-            <img id="photo-image" src="" alt="Photo" width="700">
-        </div>
-        <div class="rating-section">
-            <h2>Leave a Rating</h2>
-            <div class="average-box">
-                <h1><span id="total-ratings">N/A</span></h1>
-                <h1><span id="average-rating">N/A</span></h1>
-            </div>
-            <div>
-                <div class="rating-system", id="rating-input"> 
-                    <!-- 5 Stars (Radio Buttons, value 5 is first due to direction: rtl) -->
-                    
-                    <input type="radio" id="star5" name="rating" value="5" />
-                    <label for="star5" title="5 stars (Excellent)">&#9733;</label>
-                    
-                    <input type="radio" id="star4" name="rating" value="4" />
-                    <label for="star4" title="4 stars (Great)">&#9733;</label>
-                    
-                    <input type="radio" id="star3" name="rating" value="3" />
-                    <label for="star3" title="3 stars (Good)">&#9733;</label>
-                    
-                    <input type="radio" id="star2" name="rating" value="2" />
-                    <label for="star2" title="2 stars (Poor)">&#9733;</label>
-                    
-                    <input type="radio" id="star1" name="rating" value="1" />
-                    <label for="star1" title="1 star (Terrible)">&#9733;</label>
-                </div>
+<body class="w3-black">
 
-                <p id="currentRatingDisplay" class="text-center text-lg font-bold text-indigo-600">
-                No Rating Selected
-                </p>
+<!-- Page Content -->
+<div class="w3-padding-large" id="main">
+  <!-- Header -->
+  <header class="w3-container w3-padding-32 w3-center w3-black" id="home">
+    <h1 class="w3-jumbo">PhotoRater</h1>
+    <p>Rate, Comment, and Analyze.</p>
+  </header>
 
+  <!-- Main App Section -->
+  <div class="w3-content w3-justify w3-text-grey w3-padding-32" id="app-section">
+    
+    <!-- Main Grid for Photo and Rating -->
+    <div class="w3-row-padding" style="margin:0 -16px">
+      
+      <!-- Left Column (Photo) -->
+      <div class="w3-half">
+        <h2 id="photo-title" class="w3-text-light-grey w3-center">Loading...</h2>
+        <img id="photo-image" src="" alt="Photo" style="width:100%; border-radius: 4px;">
+      </div>
 
-            </div>
-            <div>
-                <label for="comment-input">Comment:</label>
-                <textarea id="comment-input" rows="4" cols="50"></textarea>
-            </div>
-            <button id="submit-button">Submit</button>
-            <button id="next-photo">Next Photo</button>
+      <!-- Right Column (Rating & Interaction) -->
+      <div class="w3-half">
+        <div class="w3-padding-large">
+            <h2 style="margin-left: 95px; font-size: 40px; color: white; font: 'San Francisco', Helvetica, Arial, san-serif;">Leave a Rating</h2>
             
+            <!-- Average/Total Ratings -->
+            <div class="average-box w3-center w3-padding-16">
+                <span id="total-ratings" class="w3-xlarge">N/A</span><br>
+                <span id="average-rating" class="w3-large">N/A</span>
+            </div>
+
+            <!-- 5-Star Rating System -->
+            <div class="rating-system w3-center w3-padding-16" id="rating-input" style="margin-left: 120px; ">
+                <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="5 stars">&#9733;</label>
+                <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="4 stars">&#9733;</label>
+                <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="3 stars">&#9733;</label>
+                <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="2 stars">&#9733;</label>
+                <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="1 star">&#9733;</label>
+            </div>
+            <p id="currentRatingDisplay" class="w3-center">No Rating Selected</p>
+
+            <!-- Comment Box -->
+            <div class="w3-section">
+                <label for="comment-input">Comment:</label>
+                <textarea id="comment-input" class="w3-input w3-border" rows="4"></textarea>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="w3-section w3-center">
+                <button id="submit-button" class="button">Submit</button>
+                <button id="next-photo" class="button">Next Photo</button>
+            </div>
+
+            <!-- AI Analysis Section -->
+            <div class="w3-section">
+                <button id="analyze-comments-button" class="button" style="margin-left: 95px;">Analyze Comments with AI</button>
+                <div id="ai-summary-container" class="ai-summary w3-panel w3-border-dashed w3-padding-16"></div>
+            </div>
         </div>
-        <div id="commentAnalyzation">
-            <button id="analyze-comments-button">Analyze Comments</button>
-            <div id="ai-summary-container" class="ai-summary"></div> <!-- Add this line -->
-        </div>
+      </div>
     </div>
-    <script src="script.js"></script>
+  </div>
+  
+
+<!-- END PAGE CONTENT -->
+</div>
+
+<script src="script.js"></script>
+
 </body>
 </html>
